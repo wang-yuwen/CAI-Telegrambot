@@ -92,6 +92,9 @@ catch {console.log('Error')}}
   const botreplyRPL = async function(ctx, chat) { // reply via /rpl command, reply to the *replied* message
 
     try {
+      if (typeof ctx.message.reply_to_message == 'undefined')
+      {ctx.reply(fixx(3).text)}
+      else {
   const context = ctx.message.reply_to_message.from.first_name;
   const userText = ctx.message.reply_to_message.text;
   const userText2 = ctx.message.reply_to_message.caption;
@@ -144,7 +147,7 @@ catch {console.log('Error')}}
     try {
     ctx.deleteMessage(ctx.message.message_id);}
     catch {ctx.reply (fixx(4).text)}
-  }}
+  }}}
   catch {
 try {ctx.reply (fixx(5).text)}
 catch {console.log('Error')}}}
