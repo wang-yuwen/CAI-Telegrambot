@@ -143,11 +143,7 @@ const ask = async function(ctx) {
   try {   const prom = ctx.message.text; 
 const resp = await askgemini(prom.replace('/gemini', ''))
 ctx.reply(resp, {reply_to_message_id: ctx.message.message_id}, {allow_sending_without_reply: true})}
-     catch {ctx.reply(fixx(5).text)}
-     try {
-      ctx.deleteMessage(ctx.message.message_id);}
-      catch {ctx.reply (fixx(4).text)}
-     
+     catch {ctx.reply(fixx(5).text)}     
 }
 
 
