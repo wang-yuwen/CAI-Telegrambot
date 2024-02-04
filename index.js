@@ -41,7 +41,7 @@ bot.command('onoff', async (ctx) => {  // /onoff, enables and disables the bot
 bot.command('gemini', async (ctx) => {
   if (On == true) {
     if (UseGemini == true) {
- ask}}})
+ ask(ctx)}}})
 
 
 bot.command('clear', async (ctx) => {   // clear chat history using /clear command
