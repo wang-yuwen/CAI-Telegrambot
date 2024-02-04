@@ -86,6 +86,18 @@ var numb = (function(n) {
   }
 }(0));
 
+async function askgemini(prompt1) {
+try {
+  const model = genAI.getGenerativeModel({ model: "gemini-pro", safetySettings });
+  const prompt = `${prompt1}`;
+  const result = await model.generateContent([prompt]);
+  const response = await result.response;
+  const text = `${response.text()}`
+return `${text}`}
+catch {return 'Error'}
+}
 
 
-module.exports = {run, downloadImage, numb}
+
+
+module.exports = {run, downloadImage, numb, askgemini}

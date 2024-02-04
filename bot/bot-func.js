@@ -1,7 +1,7 @@
 const {listphoto, listaudio} = require('./bot-media');
 const {TGTOKEN, UseMediaPhoto, UseMediaAudio, UsePoll, photoTrigger, audioTrigger, botResetResponse, charname, path2, errormsg1, errormsg2, errormsg3, 
   errormsg4, errormsg5, language} = require('../settings');
-const {run, downloadImage, numb} = require('./bot-gemini');
+const {run, downloadImage, numb, askgemini} = require('./bot-gemini');
 
 
 
@@ -149,7 +149,16 @@ catch {console.log('Error')}}
 try {ctx.reply (fixx(5).text)}
 catch {console.log('Error')}}}
 
-
+const ask = async function(ctx) {
+  try {   const prom = ctx.message.text; 
+const resp = await askgemini(prom.replace('/gemini', ''))
+ctx.reply(resp, {reply_to_message_id: ctx.message.message_id}, {allow_sending_without_reply: true})}
+     catch {ctx.reply(fixx(5).text)}
+     try {
+      ctx.deleteMessage(ctx.message.message_id);}
+      catch {ctx.reply (fixx(4).text)}
+     
+}
 
 
   const Poll = async function(ctx, chat) {  // Poll on update function
@@ -278,6 +287,6 @@ const tgbotid = iddqd[0]
 
 module.exports = { fixx, Refresh, Hi, Bye, botreply, botreplyRPL, Poll, 
   eyesrpl, tgbotid, eyesimg, promptJoin, promptLeft, 
-  pollPrompt}
+  pollPrompt, ask}
 
 

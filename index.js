@@ -4,7 +4,7 @@ const {CHARTOKEN, CHARIDTOKEN, CHARID, TGTOKEN, UseGemini, UseJoinResponse, UseL
   UsePoll, UseRPL, UseBotReply, UseOnOffCommands, botTextTrigger, botResetTrigger, 
  defaultResponse, UseTextTrigger} = require('./settings');
   const {fixx, Refresh, Hi, Bye, botreply, botreplyRPL, Poll, 
-    eyesrpl, tgbotid, eyesimg} = require('./bot/bot-func');
+    eyesrpl, tgbotid, eyesimg, ask} = require('./bot/bot-func');
 
 const bot = new Telegraf(TGTOKEN);
 const characterAI = new CharacterAI();
@@ -37,6 +37,12 @@ bot.command('onoff', async (ctx) => {  // /onoff, enables and disables the bot
   if (On == true) {ctx.reply ('Bot is enabled. Type /onoff to disable')}
   else if (On == false) {ctx.reply ('Bot is diabled. Type /onoff again to enable')}
 }});
+
+bot.command('gemini', async (ctx) => {
+  if (On == true) {
+    if (UseGemini == true) {
+ ask}}})
+
 
 bot.command('clear', async (ctx) => {   // clear chat history using /clear command
   if (On == true) {
@@ -131,6 +137,8 @@ if (testin2) {botreply(ctx, chat)}}
   }}
 }) 
 })(); 
+
+
  
 
 bot.launch();
