@@ -89,63 +89,53 @@ try {ctx.reply (fixx(5).text)}
 catch {console.log('Error')}}
 }
 
-  const botreplyRPL = async function(ctx, chat) { // reply via /rpl command, reply to the *replied* message
+const botreplyRPL = async function(ctx, chat) { // reply via /rpl command, reply to the *replied* message
 
-    try {
-  const context = ctx.message.reply_to_message.from.first_name;
-  const userText = ctx.message.reply_to_message.text;
-  const userText2 = ctx.message.reply_to_message.caption;
-  const textRequest = `${context}: ${userText}`;
-  const textRequest2 = `${context}: ${userText2}`;
-  const response = await chat.sendAndAwaitResponse(textRequest, true);
-  const response2 = await chat.sendAndAwaitResponse(textRequest2, true);
-  const PhotoTriggerTrue = response.text.match(photoTrigger)
-  const AudioTriggerTrue = response.text.match(audioTrigger)
-  const NoCaption = typeof userText2 === 'undefined';
+  try {
+    if (typeof ctx.message.reply_to_message == 'undefined')
+    {ctx.reply(fixx(3).text)}
+    else {
+const context = ctx.message.reply_to_message.from.first_name;
+const userText = ctx.message.reply_to_message.text;
+const textRequest = `${context}: ${userText}`;
+const response = await chat.sendAndAwaitResponse(textRequest, true);
+const PhotoTriggerTrue = response.text.match(photoTrigger)
+const AudioTriggerTrue = response.text.match(audioTrigger)
 
-  if (AudioTriggerTrue) {
-    if (UseMediaAudio == true) {
-    ctx.replyWithAudio({url: get_random(listaudio)}, {
-      performer: `${charname}`,
-      title: 'Voice message'
-    }, {reply_to_message_id: ctx.message.reply_to_message.message_id}, {allow_sending_without_reply: true});
-  }}
-  else if (PhotoTriggerTrue) {
-    if (UseMediaPhoto == true) {
-    ctx.replyWithPhoto({url: get_random(listphoto)}, {reply_to_message_id: ctx.message.reply_to_message.message_id});
-  }}
-  
-  else if (typeof ctx.message.reply_to_message.poll !== 'undefined') {
+if (AudioTriggerTrue) {
+  if (UseMediaAudio == true) {
+  ctx.replyWithAudio({url: get_random(listaudio)}, {
+    performer: `${charname}`,
+    title: 'Voice message'
+  }, {reply_to_message_id: ctx.message.reply_to_message.message_id}, {allow_sending_without_reply: true});
+}}
+else if (PhotoTriggerTrue) {
+  if (UseMediaPhoto == true) {
+  ctx.replyWithPhoto({url: get_random(listphoto)}, {reply_to_message_id: ctx.message.reply_to_message.message_id});
+}}
 
-    if (UsePoll == true) {
-    const context3 = ctx.message.reply_to_message.poll.question;
-  const Option = ctx.message.reply_to_message.poll.options;
-  let result = Option.map(({text}) => text);
-  const response3 = await chat.sendAndAwaitResponse(pollPrompt(context3, result), true);
-        ctx.reply(response3.text, {
-          reply_to_message_id: ctx.message.reply_to_message.message_id
-        }, {allow_sending_without_reply: true});
-        try {
-          ctx.deleteMessage(ctx.message.message_id);}
-          catch {ctx.reply (fixx(4).text)}}} 
+else if (typeof ctx.message.reply_to_message.poll !== 'undefined') {
 
-  else if (NoCaption) {
-    ctx.reply(response2.text, {
-      reply_to_message_id: ctx.message.reply_to_message.message_id
-    }, {allow_sending_without_reply: true});
-    try {
-      ctx.deleteMessage(ctx.message.message_id);}
-      catch {ctx.reply (fixx(4).text)}
-  }  
-  else  {
-    ctx.reply(response.text, {
-      reply_to_message_id: ctx.message.reply_to_message.message_id
-    }, {allow_sending_without_reply: true});
-    try {
-    ctx.deleteMessage(ctx.message.message_id);}
-    catch {ctx.reply (fixx(4).text)}
-  }}
-  catch {
+  if (UsePoll == true) {
+  const context3 = ctx.message.reply_to_message.poll.question;
+const Option = ctx.message.reply_to_message.poll.options;
+let result = Option.map(({text}) => text);
+const response3 = await chat.sendAndAwaitResponse(pollPrompt(context3, result), true);
+      ctx.reply(response3.text, {
+        reply_to_message_id: ctx.message.reply_to_message.message_id
+      }, {allow_sending_without_reply: true});
+      try {
+        ctx.deleteMessage(ctx.message.message_id);}
+        catch {ctx.reply (fixx(4).text)}}} 
+else  {
+  ctx.reply(response.text, {
+    reply_to_message_id: ctx.message.reply_to_message.message_id
+  }, {allow_sending_without_reply: true});
+  try {
+  ctx.deleteMessage(ctx.message.message_id);}
+  catch {ctx.reply (fixx(4).text)}
+}}}
+catch {
 try {ctx.reply (fixx(5).text)}
 catch {console.log('Error')}}}
 
